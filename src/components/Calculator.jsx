@@ -182,7 +182,7 @@ const Calculator = () => {
                 </div>
 
                 <div className="team-info">
-                    <p>Desenvolvido pela Equipe</p>
+                    <p>Desenvolvido por UnlimitTechSolution</p>
                 </div>
             </div>
         </div>
