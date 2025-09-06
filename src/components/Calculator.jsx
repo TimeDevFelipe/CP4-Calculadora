@@ -3,76 +3,76 @@ import Display from './Display';
 import Button from './Button';
 import '../css/Calculator.css';
 
-const Calculator = () => {
-    const [display, setDisplay] = useState('0');
-    const [previousValue, setPreviousValue] = useState(null);
-    const [operation, setOperation] = useState(null);
-    const [waitingForOperand, setWaitingForOperand] = useState(false);
+const Calculadora = () => {
+    const [visor, setVisor] = useState('0');
+    const [valorAnterior, setValorAnterior] = useState(null);
+    const [operacao, setOperacao] = useState(null);
+    const [esperandoOperando, setEsperandoOperando] = useState(false);
 
-    const inputNumber = (num) => {
-        if (waitingForOperand) {
-            setDisplay(String(num));
-            setWaitingForOperand(false);
+    const inserirNumero = (numero) => {
+        if (esperandoOperando) {
+            setVisor(String(numero));
+            setEsperandoOperando(false);
         } else {
-            setDisplay(display === '0' ? String(num) : display + num);
+            setVisor(visor === '0' ? String(numero) : visor + numero);
         }
     };
 
-    const inputDecimal = () => {
-        if (waitingForOperand) {
-            setDisplay('0.');
-            setWaitingForOperand(false);
-        } else if (display.indexOf('.') === -1) {
-            setDisplay(display + '.');
+    const inserirDecimal = () => {
+        if (esperandoOperando) {
+            setVisor('0.');
+            setEsperandoOperando(false);
+        } else if (visor.indexOf('.') === -1) {
+            setVisor(visor + '.');
         }
     };
 
-    const clear = () => {
-        setDisplay('0');
-        setPreviousValue(null);
-        setOperation(null);
-        setWaitingForOperand(false);
+    const limpar = () => {
+        setVisor('0');
+        setValorAnterior(null);
+        setOperacao(null);
+        setEsperandoOperando(false);
     };
 
-    const performOperation = (nextOperation) => {
-        const inputValue = parseFloat(display);
+    const realizarOperacao = (proximaOperacao) => {
+        const valorEntrada = parseFloat(visor);
 
-        if (previousValue === null) {
-            setPreviousValue(inputValue);
-        } else if (operation) {
-            const currentValue = previousValue || 0;
-            let result;
+        if (valorAnterior === null) {
+            setValorAnterior(valorEntrada);
+        } else if (operacao) {
+            const valorAtual = valorAnterior || 0;
+            let resultado;
 
-            switch (operation) {
+            switch (operacao) {
                 case '+':
-                    result = currentValue + inputValue;
+                    resultado = valorAtual + valorEntrada;
                     break;
                 case '-':
-                    result = currentValue - inputValue;
+                    resultado = valorAtual - valorEntrada;
                     break;
                 case '*':
-                    result = currentValue * inputValue;
+                    resultado = valorAtual * valorEntrada;
                     break;
                 case '/':
-                    result = inputValue !== 0 ? currentValue / inputValue : 0;
+                    resultado = valorEntrada !== 0 ? valorAtual / valorEntrada : 0;
                     break;
                 default:
                     return;
             }
 
-            setPreviousValue(result);
-            setDisplay(String(result));
+            setValorAnterior(resultado);
+            setVisor(String(resultado));
         }
 
-        setWaitingForOperand(true);
-        setOperation(nextOperation);
+        setEsperandoOperando(true);
+        setOperacao(proximaOperacao);
     };
 
-    const calculate = () => {
-        performOperation(null);
-        setOperation(null);
-        setPreviousValue(null);
-        setWaitingForOperand(true);
+    const calcular = () => {
+        realizarOperacao(null);
+        setOperacao(null);
+        setValorAnterior(null);
+        setEsperandoOperando(true);
     };
 
     return (
@@ -82,100 +82,95 @@ const Calculator = () => {
                     <h1>Calculadora</h1>
                 </div>
 
-                <Display value={display} />
+                <Display value={visor} />
 
                 <div className="buttons-grid">
-                    {/* Row 1 */}
                     <Button
-                        onClick={clear}
+                        onClick={limpar}
                         className="btn-clear span-2"
-                        text="Clear"
+                        text="Limpar"
                     />
                     <Button
-                        onClick={() => performOperation('/')}
+                        onClick={() => realizarOperacao('/')}
                         className="btn-operation"
                         text="÷"
                     />
                     <Button
-                        onClick={() => performOperation('*')}
+                        onClick={() => realizarOperacao('*')}
                         className="btn-operation"
                         text="×"
                     />
 
-                    {/* Row 2 */}
                     <Button
-                        onClick={() => inputNumber(7)}
+                        onClick={() => inserirNumero(7)}
                         className="btn-number"
                         text="7"
                     />
                     <Button
-                        onClick={() => inputNumber(8)}
+                        onClick={() => inserirNumero(8)}
                         className="btn-number"
                         text="8"
                     />
                     <Button
-                        onClick={() => inputNumber(9)}
+                        onClick={() => inserirNumero(9)}
                         className="btn-number"
                         text="9"
                     />
                     <Button
-                        onClick={() => performOperation('-')}
+                        onClick={() => realizarOperacao('-')}
                         className="btn-operation"
                         text="−"
                     />
 
-                    {/* Row 3 */}
                     <Button
-                        onClick={() => inputNumber(4)}
+                        onClick={() => inserirNumero(4)}
                         className="btn-number"
                         text="4"
                     />
                     <Button
-                        onClick={() => inputNumber(5)}
+                        onClick={() => inserirNumero(5)}
                         className="btn-number"
                         text="5"
                     />
                     <Button
-                        onClick={() => inputNumber(6)}
+                        onClick={() => inserirNumero(6)}
                         className="btn-number"
                         text="6"
                     />
                     <Button
-                        onClick={() => performOperation('+')}
+                        onClick={() => realizarOperacao('+')}
                         className="btn-operation"
                         text="+"
                     />
 
-                    {/* Row 4 */}
                     <Button
-                        onClick={() => inputNumber(1)}
+                        onClick={() => inserirNumero(1)}
                         className="btn-number"
                         text="1"
                     />
                     <Button
-                        onClick={() => inputNumber(2)}
+                        onClick={() => inserirNumero(2)}
                         className="btn-number"
                         text="2"
                     />
                     <Button
-                        onClick={() => inputNumber(3)}
+                        onClick={() => inserirNumero(3)}
                         className="btn-number"
                         text="3"
                     />
                     <Button
-                        onClick={calculate}
+                        onClick={calcular}
                         className="btn-equals span-vertical"
                         text="="
                     />
 
-                    {/* Row 5 */}
                     <Button
-                        onClick={() => inputNumber(0)}
+                        onClick={() => inserirNumero(0)}
                         className="btn-number span-2"
                         text="0"
                     />
                     <Button
-                        onClick={inputDecimal}
+                        onClick={inserirDecimal}
                         className="btn-number"
                         text="."
                     />
@@ -189,4 +184,4 @@ const Calculator = () => {
     );
 };
 
-export default Calculator;
+export default Calculadora;
