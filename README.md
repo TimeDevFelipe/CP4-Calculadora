@@ -1,6 +1,6 @@
 # Calculadora React + Vite
 
-Felipe - 562106
-Laura - 564064
-Raphael - 564067
-Kimberly - 564080
+Felipe - 562106\n
+Laura - 564064\n
+Raphael - 564067\n
+Kimberly - 564080\n
